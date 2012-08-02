@@ -1,0 +1,13 @@
+package com.nurinamu.study.algo.hw.chapter.one;
+
+import com.nurinamu.algo.AlgoBase;
+
+public class ThreeNPlusOne extends AlgoBase {
+
+	@Override
+	protected void algorithm() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

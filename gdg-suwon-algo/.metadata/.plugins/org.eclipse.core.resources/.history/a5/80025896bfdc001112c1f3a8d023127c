@@ -1,0 +1,22 @@
+package com.nurinamu.study.algo.hw.chapter.one;
+
+import java.io.FileNotFoundException;
+
+import com.nurinamu.algo.AlgoBase;
+
+public class ThreeNPlusOne extends AlgoBase {
+
+	@Override
+	protected void algorithm() {
+
+	}
+	
+	public static void main(String args){
+		try {
+			new ThreeNPlusOne().run("3n1.txt", false);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+}

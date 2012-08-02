@@ -1,0 +1,103 @@
+package com.nurinamu.study.algo;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+
+public abstract class AlgoBase {
+	private BufferedReader br = null;
+	private BufferedWriter bw = null;
+	
+	private final String fileName;
+	private final boolean createOutput;
+	
+	public AlgoBase(String fileName_p, boolean createOutput_p) throws FileNotFoundException{
+		if(fileName_p == null){
+			throw new FileNotFoundException();
+		}
+		fileName = fileName_p;
+		createOutput = createOutput_p;
+	}
+	
+	protected String[] readNext(){
+		String[] retStrArr = null;
+	
+		if(br != null){
+			try {
+				String nextStr = br.readLine();
+				StringTokenizer stoken = new StringTokenizer(nextStr, " ");
+				retStrArr = new String[stoken.countTokens()];
+				int idx=0;
+				while(stoken.hasMoreTokens()){
+					retStrArr[idx++] = stoken.nextToken();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return retStrArr;
+		
+	}
+	
+	protected void write(String msg_p){
+		if(bw != null){
+			try {
+				bw.write(msg_p);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else{
+			System.out.println(bw);
+		}
+	}
+	
+	private void init(){
+		try {
+			br = new BufferedReader(
+					new InputStreamReader(
+							new FileInputStream(new File(fileName))));
+			if(createOutput){
+				bw = new BufferedWriter(
+						new OutputStreamWriter(
+								new FileOutputStream(new File(fileName+".out"))));
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void close(){
+		if(br != null){
+			try {
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(bw != null){
+			try {
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	protected abstract void algorithm(); 
+	
+	public void run(){
+		init();
+		algorithm();
+		close();
+	}
+}
