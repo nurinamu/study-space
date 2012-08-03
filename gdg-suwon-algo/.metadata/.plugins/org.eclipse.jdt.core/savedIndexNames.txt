@@ -1,3 +1,0 @@
-INDEX VERSION 1.126+/Users/nurinamu/Documents/study-space/gdg-suwon-algo/.metadata/.plugins/org.eclipse.jdt.core
-693212568.index
-2527093362.index

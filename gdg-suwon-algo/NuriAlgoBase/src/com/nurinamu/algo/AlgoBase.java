@@ -17,6 +17,18 @@ public abstract class AlgoBase {
 	private BufferedWriter bw = null;
 	private long tickCnt = 0;
 	
+	protected String readNextLine(){
+		String nextStr = null;
+		if(br != null){
+			try {
+				nextStr = br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return nextStr;
+	}
+	
 	protected String[] readNext(){
 		String[] retStrArr = null;
 	
