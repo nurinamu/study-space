@@ -1,8 +1,9 @@
 package com.nurinamu.study.algo.hw.chapter.one;
 
 import java.io.FileNotFoundException;
-import java.util.SortedSet;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 import com.nurinamu.algo.AlgoBase;
 
@@ -26,25 +27,53 @@ public class AustralianVoting extends AlgoBase {
 			if(numberOfCandidate < 0){
 				numberOfCandidate = Integer.parseInt(readNext()[0]);
 			}
-			Candidate[] candidates = new Candidate[numberOfCandidate];
+			ArrayList<Candidate> candidates = new ArrayList<Candidate>();
 			
 			for(int j=0;j<numberOfCandidate;j++){
-				candidates[j] = new Candidate(readNextLine());
+				candidates.add(new Candidate(readNextLine()));
 				tick();
 			}
 			String[] result = null;
 			int totalBallot = 0;
 			while((result=readNext()) != null && result.length > 1){
-				candidates[Integer.parseInt(result[0])-1].ballot++;
+				candidates.get(Integer.parseInt(result[0])-1).ballot++;
 				totalBallot++;
 				tick();
 			}
 			
+			TreeSet<Candidate> rankSet = new TreeSet(new Comparator<Candidate>() {
+
+				@Override
+				public int compare(Candidate o1, Candidate o2) {
+					tick();
+					if(o1.ballot > o2.ballot) return -1;
+					return 1;
+				}
+				
+			});
+			
+			rankSet.addAll(candidates);
+			
+			while(rankSet.size() > 0 && rankSet.first().ballot < (totalBallot/2+(totalBallot%2)) && rankSet.first().ballot != rankSet.last().ballot){
+				totalBallot -= rankSet.last().ballot;
+				rankSet.pollLast();
+			}
+			
+			
+			if(rankSet.first().ballot == rankSet.last().ballot){
+				for(Candidate elected : rankSet){
+					write(elected.name+" "+elected.ballot+", ");
+				}
+			}else if(rankSet.first().ballot >= (totalBallot/2+(totalBallot%2))){
+				write(rankSet.first().name+" "+rankSet.first().ballot);
+			}else{
+				write("no one was elected.->"+rankSet.size()+"\n");
+			}
 			
 			if(result != null){
 				numberOfCandidate = Integer.parseInt(result[0]);
 			}
-			
+			write("\n");
 			printTick();
 		}
 		
