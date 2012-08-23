@@ -7,6 +7,10 @@ import java.util.TreeSet;
 
 import com.nurinamu.algo.AlgoBase;
 
+/**
+ * PC/UVa IDs: 110108/10142, Popularity: B, Success rate: low Level: 1
+ ** /
+
 public class AustralianVoting extends AlgoBase {
 	
 //	private final int BALLOT_THRESHOLD = 1000;
